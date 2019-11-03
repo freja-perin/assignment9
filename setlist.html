@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Set List</title>
+        <style type="text/css">
+            .song {
+                background-color: #c2bebe;
+                text-align:center;
+                width:19%;
+                height:auto;
+                float:left;
+                color: #000;
+                border: solid 2px #000;
+                margin:2px;
+            }
+            h1{
+                text-align: center;
+            }
+        </style>
+
+        <script type="text/javascript">
+         var setList =
+                [
+                    {
+                        'title': 'Soma',
+                        'artists': ['The Strokes'],
+                        'genres': ['Indie', 'Rock'],
+                        'year': 2001
+                    },
+                    {
+                        'title': 'Never Seen Such Good Things',
+                        'artists': ['Devendra Banhart'],
+                        'genres': ['Indie'],
+                        'year': 2013
+                    },
+                    {
+                        'title': 'Awake',
+                        'artists': ['Tycho'],
+                        'genres':['Electronic'],
+                        'year': 2016
+                    },
+                    {
+                        'title': 'Fluorescent Adolescent',
+                        'artists': ['Arctic Monkeys'],
+                        'genres': ['Indie', 'Rock'],
+                        'year': 2007
+                    },
+                    {
+                        'title': 'All Along the Watchtower',
+                        'artists': ['Jimi Hendrix'],
+                        'genres': ['Rock'],
+                        'year': 1968
+                    },
+                    {
+                        'title': 'Natural Light',
+                        'artists': ['Porter Robinson'],
+                        'genres': ['Electronic'],
+                        'year': 2014
+                    },
+                    {
+                        'title': 'Little Black Submarines',
+                        'artists': ['The Black Keys'],
+                        'genres': ['Rock', 'Indie'],
+                        'year': 2011
+                    },
+                    {
+                        'title': 'Red Eyes',
+                        'artists': ['The War on Drugs'],
+                        'genres': ['Indie'],
+                        'year': 2014
+                    },
+                    {
+                        'title': 'The Denial Twist',
+                        'artists': ['The White Stripes'],
+                        'genres': ['Rock'],
+                        'year': 2005
+                    },
+                    {
+                        'title': 'Cream on Chrome',
+                        'artists': ['Ratatat'],
+                        'genres': ['Electronic'],
+                        'year': 2015
+                    }
+                ]      
+        </script>
+
+    </head>
+
+    <body>
+            <h1>Assignment 9 - Set List</h1>
+            <h2>Part 2 - Serialized Data: </h2>
+
+            <script type="text/javascript">
+
+            //serializes data and displays it
+            for(i = 0; i < 10; i++) {
+                strSong = JSON.stringify(setList[i]);
+                document.write(strSong + "<br>");
+            }  
+
+            //function which prints the data of a song in a specified format
+            function printSong (song) {
+                //creating a div in which the song info resides
+                document.write("<div class='song'>"); 
+                //printing the title
+                document.write("<h3>" + song.title + "</h3>");
+                //printing the artists
+                document.write("<h4> Artist(s): ");
+                song.artists.forEach(function printArtists(artistName){
+                    document.write(artistName + ", ");
+                });
+                //printing the genres
+                document.write("</h4><h4>Genre(s): ");
+                song.genres.forEach(function printGenres(genreName){
+                    document.write(genreName + ", ");
+                });
+                //printing the year and ending the div
+                document.write("</h4><h4>Released " + song.year + "</h4></div>");
+            }
+
+            </script>
+
+            <h2>Part 3 - User-friendly Format: </h2>
+            
+            <script type="text/javascript">
+
+                //prints every song in the set list
+                setList.forEach(printSong);
+
+            </script>
+
+            <h2>Part 4: Filtering the Data</h2>
+            <h3>Pick a genre:</h3>
+            <form>
+                <select id="chooseGenre">
+                    <option value='Rock'>Rock</option>
+                    <option value='Indie'>Indie</option>
+                    <option value='Electronic'>Electronic</option>
+                </select>
+                <input type="submit" value="filter" onclick="filter()">
+            </form>
+
+            <script type="text/javascript">
+                //function which displays the filtered list of songs
+                function filter() {
+                    //gets the chosen genre from the form
+                    chosenGenre = document.getElementById("chooseGenre").value;
+                    //checks each song in the set list and determines whether or not it has the selected genre
+                    setList.forEach(function checkGenres(songToCheck) {
+                        var hasGenre = false;
+                        //checks through the list of genres of a song
+                        songToCheck.genres.forEach(function compare(genreToCompare) {
+                            if(genreToCompare == chosenGenre) {
+                                hasGenre = true;
+                            }
+                        });
+                        //prints the song if it has the genre we're looking for.
+                        if(hasGenre)
+                            printSong(songToCheck);
+                    });
+                }
+            </script>
+       
+    </body>
+</html>
